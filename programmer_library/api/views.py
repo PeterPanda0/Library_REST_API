@@ -8,8 +8,7 @@ from api.serializers import (AuthorListSerializer, AuthorSerializer,
                              BookSerializer, GenreListSerializer,
                              GenreSerializer)
 from books.models import Author, Book, Genre
-from programmer_library.constants import (DEFAULT_BOOKS_COUNT,
-                                          DELIVERY_MESSAGE)
+from programmer_library.constants import DEFAULT_BOOKS_COUNT, DELIVERY_MESSAGE
 
 
 class AuthorViewSet(viewsets.ModelViewSet):
