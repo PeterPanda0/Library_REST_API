@@ -1,0 +1,16 @@
+BOOK = 'Книга'
+BOOK_1 = 'Книга 1'
+BOOK_2 = 'Книга 2'
+COUNT = 5
+DEFAULT_TOP_COPIES_BOOKS = 5
+GENRE = 'Жанр'
+GENRE_1 = 'Жанр 1'
+GENRE_2 = 'Жанр 2'
+QUERY_OBJECTS = 4
+NAME = 'Автор'
+NAME_1 = 'Автор 1'
+NAME_2 = 'Автор 2'
+PAGE = 2
+PAGE_SIZE = 10
+OBJECT = 1
+OBJECTS = 12

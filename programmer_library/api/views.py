@@ -3,13 +3,13 @@ from rest_framework import filters, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from api.serializers import (AuthorListSerializer, AuthorSerializer,
+                             AuthorStatSerializer, BookListSerializer,
+                             BookSerializer, GenreListSerializer,
+                             GenreSerializer)
 from books.models import Author, Book, Genre
-from .serializers import (AuthorListSerializer, AuthorSerializer,
-                          AuthorStatSerializer, BookListSerializer,
-                          BookSerializer, GenreListSerializer, GenreSerializer)
-
-# Количество книг по умолчанию:
-DEFAULT_BOOKS_COUNT = 5
+from programmer_library.constants import (DEFAULT_BOOKS_COUNT,
+                                          DELIVERY_MESSAGE)
 
 
 class AuthorViewSet(viewsets.ModelViewSet):
@@ -33,7 +33,8 @@ class AuthorViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'], url_path='stat')
     def stat_all(self, request):
         """Возвращает количество книг для всех авторов."""
-        authors = Author.objects.annotate(book_count=Count('book')).order_by('-book_count', 'name')
+        authors = Author.objects.annotate(
+            book_count=Count('book')).order_by('-book_count', 'name')
         page = self.paginate_queryset(authors)
         if page is not None:
             serializer = AuthorStatSerializer(page, many=True)
@@ -59,7 +60,7 @@ class BookViewSet(viewsets.ModelViewSet):
 
     queryset = Book.objects.all().order_by('title')
     serializer_class = BookSerializer
-    filter_backends = [filters.SearchFilter]
+    filter_backends = (filters.SearchFilter,)
     search_fields = ('title',)
 
     def get_serializer_class(self):
@@ -77,7 +78,7 @@ class BookViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['post'], url_path='delivery')
     def delivery(self, request):
-        """Добавляет партию новых книг в базу данных."""
+        """Добавляет партию новых книг в библиотеку."""
         books_data = request.data.get('books', [])
         for book_data in books_data:
             serializer = self.get_serializer(data=book_data)
@@ -89,6 +90,6 @@ class BookViewSet(viewsets.ModelViewSet):
                     status=status.HTTP_400_BAD_REQUEST
                 )
         return Response(
-            {'detail': 'Книги успешно доставлены.'},
+            {'detail': DELIVERY_MESSAGE},
             status=status.HTTP_201_CREATED
         )

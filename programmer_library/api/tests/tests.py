@@ -5,21 +5,8 @@ from django.urls import reverse
 from rest_framework import status
 
 from books.models import Author, Book, Genre
-
-# Количество книг по умолчанию
-DEFAULT_TOP_COPIES_BOOKS = 5
-
-# Количество объектов на странице (пагинация)
-PAGE_SIZE = 10
-
-# Номер страницы
-PAGE = 2
-
-# Количество объектов для запроса
-QUERY_OBJECTS = 4
-
-# Один объект
-OBJECT = 1
+from .constants import (DEFAULT_TOP_COPIES_BOOKS, OBJECT,
+                        PAGE, PAGE_SIZE, QUERY_OBJECTS)
 
 
 @pytest.mark.django_db

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from books.models import COPY, Author, AuthorBook, Book, Genre, GenreBook
+from books.models import Author, AuthorBook, Book, Genre, GenreBook
+from programmer_library.constants import COPY, NAME_MAX_LEN, TITLE_MAX_LEN
 
 
 class AuthorGenreMixin:
@@ -11,7 +12,7 @@ class AuthorGenreMixin:
 
 
 class AuthorListSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(max_length=64, required=False)
+    name = serializers.CharField(max_length=NAME_MAX_LEN, required=False)
 
     class Meta:
         model = Author
@@ -38,7 +39,7 @@ class AuthorSerializer(AuthorGenreMixin, serializers.ModelSerializer):
 
 
 class GenreListSerializer(serializers.ModelSerializer):
-    title = serializers.CharField(max_length=64, required=False)
+    title = serializers.CharField(max_length=TITLE_MAX_LEN, required=False)
 
     class Meta:
         model = Genre
