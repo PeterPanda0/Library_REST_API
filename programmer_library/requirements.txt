@@ -4,6 +4,7 @@ charset-normalizer==3.3.2
 Django==3.2.15
 django-environ==0.11.2
 djangorestframework==3.12.4
+django-cors-headers==3.13.0
 drf-yasg==1.21.7
 exceptiongroup==1.2.1
 idna==3.7

@@ -1,5 +1,7 @@
 COPY = 1
 DEFAULT_BOOKS_COUNT = 5
+ERROR_DATA = 'Нет данных для добавления книг.'
+ERROR_JSON = 'Неверный формат файла или JSON.'
 DELIVERY_MESSAGE = 'Книги успешно доставлены.'
 PAGE_SIZE = 10
 MAX_PAGE_SIZE = 1000

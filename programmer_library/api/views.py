@@ -1,6 +1,9 @@
+import json
+
 from django.db.models import Count
 from rest_framework import filters, status, viewsets
 from rest_framework.decorators import action
+from rest_framework.parsers import JSONParser, MultiPartParser
 from rest_framework.response import Response
 
 from api.serializers import (AuthorListSerializer, AuthorSerializer,
@@ -8,7 +11,9 @@ from api.serializers import (AuthorListSerializer, AuthorSerializer,
                              BookSerializer, GenreListSerializer,
                              GenreSerializer)
 from books.models import Author, Book, Genre
-from programmer_library.constants import DEFAULT_BOOKS_COUNT, DELIVERY_MESSAGE
+from programmer_library.constants import (DEFAULT_BOOKS_COUNT,
+                                          DELIVERY_MESSAGE, ERROR_DATA,
+                                          ERROR_JSON)
 
 
 class AuthorViewSet(viewsets.ModelViewSet):
@@ -61,6 +66,7 @@ class BookViewSet(viewsets.ModelViewSet):
     serializer_class = BookSerializer
     filter_backends = (filters.SearchFilter,)
     search_fields = ('title',)
+    parser_classes = (MultiPartParser, JSONParser)
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -78,11 +84,25 @@ class BookViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['post'], url_path='delivery')
     def delivery(self, request):
         """Добавляет партию новых книг в библиотеку."""
-        books_data = request.data.get('books', [])
+        file = request.FILES.get('file', None)
+        if file:
+            try:
+                file_data = file.read().decode('utf-8')
+                books_data = json.loads(file_data).get('books', [])
+            except (json.JSONDecodeError, KeyError):
+                return Response(
+                    {'error': ERROR_JSON}, status=status.HTTP_400_BAD_REQUEST
+                )
+        else:
+            books_data = request.data.get('books', [])
+        if not books_data:
+            return Response(
+                {'error': ERROR_DATA}, status=status.HTTP_400_BAD_REQUEST
+            )
         for book_data in books_data:
             serializer = self.get_serializer(data=book_data)
             if serializer.is_valid():
-                serializer.create(serializer.validated_data)
+                serializer.save()
             else:
                 return Response(
                     serializer.errors,

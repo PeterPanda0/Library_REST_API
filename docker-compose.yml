@@ -19,10 +19,17 @@ services:
     volumes:
       - static:/backend_static
 
+  frontend:
+    build: ./frontend/
+    env_file: .env
+    command: cp -r /app/build/. /static/
+    volumes:
+      - static:/static
+
   web:
     build: ./nginx/
     env_file: .env
     ports:
-      - 8080:80
+      - 8000:80
     volumes:
       - static:/static

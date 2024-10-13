@@ -1,0 +1,43 @@
+/* Общие стили */
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-top: 20px;
+  color: #333;
+}
+
+/* Стиль списка книг */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  font-size: 1.2em;
+  border-bottom: none;
+}
+
+/* Кнопки */
+button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 10px; /* Общий отступ */
+}
+
+input[type="text"], input[type="file"] {
+  padding: 10px;
+  margin-right: 10px; /* Отступ для текстового поля */
+  border: 1px solid #ccc;
+}
+
+button:hover {
+  background-color: #555;
+}

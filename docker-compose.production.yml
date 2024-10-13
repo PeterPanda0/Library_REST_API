@@ -17,6 +17,13 @@ services:
     volumes:
       - static:/backend_static
 
+  frontend:
+    image: peterpanda1/library_frontend
+    env_file: .env
+    command: cp -r /app/build/. /static/
+    volumes:
+      - static:/static
+
   web:
     image: peterpanda1/library_gateway
     env_file: .env
