@@ -9,7 +9,7 @@ function BookDetail() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/books/${id}/`)
+      .get(`https://programmer-library.run.place/api/books/${id}/`)
       .then(response => {
         setBook(response.data);
       })
@@ -38,7 +38,7 @@ function BookDetail() {
           cursor: "pointer", // Курсор при наведении
           fontSize: "14px", // Размер шрифта
           borderRadius: "5px", // Скругление углов
-          marginTop: "10px" // Отступ сверху
+          marginTop: "10px"
         }}
       >
         Вернуться к списку
