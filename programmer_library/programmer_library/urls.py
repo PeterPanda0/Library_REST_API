@@ -4,8 +4,6 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
-from programmer_library.views import redirect_to_api
-
 schema_view = get_schema_view(
     openapi.Info(
         title='Library API',
@@ -21,7 +19,6 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
-    path('', redirect_to_api),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('swagger/', schema_view.with_ui(

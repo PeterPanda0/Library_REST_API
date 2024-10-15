@@ -31,13 +31,13 @@ function BookDetail() {
       <button
         onClick={() => navigate("/")}
         style={{
-          backgroundColor: "black", // Цвет фона кнопки
-          color: "white", // Цвет текста
-          border: "none", // Убираем границу
-          padding: "10px 20px", // Отступы
-          cursor: "pointer", // Курсор при наведении
-          fontSize: "14px", // Размер шрифта
-          borderRadius: "5px", // Скругление углов
+          backgroundColor: "black",
+          color: "white",
+          border: "none",
+          padding: "10px 20px",
+          cursor: "pointer",
+          fontSize: "14px",
+          borderRadius: "5px",
           marginTop: "10px"
         }}
       >

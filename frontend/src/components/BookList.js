@@ -10,25 +10,17 @@ function BookList() {
   const [file, setFile] = useState(null);
 
   const getApiUrl = (url) => {
-    // Определяем протокол (HTTP или HTTPS) на основе текущего окна
     const protocol = window.location.protocol === "https:" ? "https://" : "http://";
-
-    // Если URL пустой, возвращаем основной URL с правильным протоколом
     if (!url) {
       return `${protocol}programmer-library.run.place/api/books/`;
     }
-
-    // Если URL относительный или некорректный, заменяем протокол на текущий
     if (url.startsWith("http://") || url.startsWith("https://")) {
       return url.replace(/^http(s)?:\/\//, protocol);
     }
-
     return `${protocol}programmer-library.run.place${url}`;
   };
-
   const fetchBooks = (url = null) => {
     const apiUrl = getApiUrl(url);
-
     axios
       .get(apiUrl)
       .then((response) => {
@@ -41,7 +33,6 @@ function BookList() {
         setError(error);
       });
   };
-
   useEffect(() => {
     fetchBooks();
   }, []);
@@ -72,7 +63,7 @@ function BookList() {
       })
       .then((response) => {
         alert("Файл успешно загружен!");
-        fetchBooks(); // Обновляем список книг после загрузки
+        fetchBooks();
       })
       .catch((error) => {
         console.error("Ошибка при загрузке файла:", error);
